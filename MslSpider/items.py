@@ -11,4 +11,11 @@ import scrapy
 class MslspiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
+    title = scrapy.Field()
+    tag = scrapy.Field()
+    categories = scrapy.Field()
+    question = scrapy.Field()
+    answer = scrapy.Field()
+    url_mark = scrapy.Field()
+    r_type = scrapy.Field()
     pass
