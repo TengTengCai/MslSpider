@@ -47,14 +47,13 @@ class IslamqaSpider(CrawlSpider):
         else:
             i['tag'] = ''
             i['categories'] = ''
-        question_list = response.xpath('/html/body/section/div[1]/div/section/div/section[2]/div/text()').extract()
+        question_list = response.xpath('/html/body/section/div[1]/div/section/div/section[2]/div//text()').extract()
         # q_list = [q.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
         #           for q in question_list]
         # i['question'] = ' '.join(q_list[::-1])
         i['question'] = ' '.join(question_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
             .replace("\r", " ")
-        answer_list = response.xpath(
-            '/html/body/section/div[1]/div/section/div/div[2]/section/section/div//text()').extract()
+        answer_list = response.xpath('/html/body/section/div[1]/div/section/div/div[2]/section/section/div//text()').extract()
         # a_list = [a.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
         #           for a in answer_list]
         # answer = '{{rr}}'.join(a_list[::-1])
@@ -93,14 +92,13 @@ class IslamqaSpider(CrawlSpider):
         else:
             i['tag'] = ''
             i['categories'] = ''
-        question_list = response.xpath('/html/body/section/div[1]/div/section/div/section[2]/div/text()').extract()
+        question_list = response.xpath('/html/body/section/div[1]/div/section/div/section[2]/div//text()').extract()
         q_list = [q.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
                   .replace("   ", '') for q in question_list]
         # i['question'] = ' '.join(question_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
         #     .replace("\r", " ")
         i['question'] = ' '.join(q_list)
-        answer_list = response.xpath(
-            '/html/body/section/div[1]/div/section/div/div[2]/section/section/div//text()').extract()
+        answer_list = response.xpath('/html/body/section/div[1]/div/section/div/div[2]/section/section/div/p/text()').extract()
         a_list = [a.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
                   .replace("   ", '')for a in answer_list]
         # answer = ' '.join(answer_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \

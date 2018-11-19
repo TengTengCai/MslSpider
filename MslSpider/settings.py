@@ -83,11 +83,11 @@ ITEM_PIPELINES = {
 
 # Enable and configure HTTP caching (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
-HTTPCACHE_ENABLED = True
-HTTPCACHE_EXPIRATION_SECS = 0
-HTTPCACHE_DIR = 'httpcache'
-HTTPCACHE_IGNORE_HTTP_CODES = []
-HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+# HTTPCACHE_ENABLED = True
+# HTTPCACHE_EXPIRATION_SECS = 0
+# HTTPCACHE_DIR = 'httpcache'
+# HTTPCACHE_IGNORE_HTTP_CODES = []
+# HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # Scrapy Reids Config
 # Enables scheduling storing requests queue in redis.
@@ -164,7 +164,7 @@ REDIS_URL = 'redis://:mlbj@localhost:6379/2'
 
 # islamqa Setting
 
-DOWNLOAD_DELAY = 10
+DOWNLOAD_DELAY = 15
 DOWNLOADER_MIDDLEWARES = {
    'MslSpider.middlewares.SeleniumMiddleware': 543,
 }
