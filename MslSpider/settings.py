@@ -15,7 +15,7 @@ SPIDER_MODULES = ['MslSpider.spiders']
 NEWSPIDER_MODULE = 'MslSpider.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0'
+USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.7 (KHTML, like Gecko) Version/9.1.2 Safari/601.7.7'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -26,7 +26,7 @@ CONCURRENT_REQUESTS = 3
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+# DOWNLOAD_DELAY = 10
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # CONCURRENT_REQUESTS_PER_IP = 16
@@ -35,7 +35,7 @@ DOWNLOAD_DELAY = 3
 COOKIES_ENABLED = True
 
 # Disable Telnet Console (enabled by default)
-# TELNETCONSOLE_ENABLED = False
+TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
@@ -52,7 +52,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 # DOWNLOADER_MIDDLEWARES = {
-#    'MslSpider.middlewares.MslspiderDownloaderMiddleware': 543,
+#    'MslSpider.middlewares.SeleniumMiddleware': 543,
 # }
 
 # Enable or disable extensions
@@ -156,3 +156,15 @@ REDIS_URL = 'redis://:mlbj@localhost:6379/2'
 
 # Use other encoding than utf-8 for redis.
 # REDIS_ENCODING = 'latin1'
+
+
+# binbaz Setting
+#
+# DOWNLOAD_DELAY = 3
+
+# islamqa Setting
+
+DOWNLOAD_DELAY = 10
+DOWNLOADER_MIDDLEWARES = {
+   'MslSpider.middlewares.SeleniumMiddleware': 543,
+}
