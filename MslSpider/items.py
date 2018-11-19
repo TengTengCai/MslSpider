@@ -18,4 +18,5 @@ class MslspiderItem(scrapy.Item):
     answer = scrapy.Field()
     url_mark = scrapy.Field()
     r_type = scrapy.Field()
+    lang = scrapy.Field()
     pass
