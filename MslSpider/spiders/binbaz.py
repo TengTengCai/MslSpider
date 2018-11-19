@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import hashlib
+import re
 
 import scrapy
 from scrapy import Request
@@ -60,6 +61,7 @@ class BinbazSpider(CrawlSpider):
         # i['answer'] = ' '.join(a_list)
         i['answer'] = ' '.join(answer_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
             .replace("\r", " ")
+        i['qa_id'] = re.search('https://binbaz.org.sa/fatwas/(\d+)/.*?', response.url).group(1)
         i['url_mark'] = m.hexdigest()
         i['r_type'] = "binbaz"
         i['lang'] = "ar"
