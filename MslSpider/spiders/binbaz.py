@@ -50,6 +50,8 @@ class BinbazSpider(CrawlSpider):
         i['question'] = ' '.join(question_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
             .replace("\r", " ")
         answer_list = response.xpath('//p[@itemprop="articleBody"][1]/following-sibling::*/text()').extract()
+        if len(answer_list) == 0:
+            answer_list = response.xpath('//p[@itemprop="articleBody"]/text()').extract()
         # a_list = [a.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
         #           .replace("   ", '')for a in answer_list
         # i['answer'] = ' '.join(a_list)
