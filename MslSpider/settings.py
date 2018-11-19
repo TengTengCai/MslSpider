@@ -160,11 +160,11 @@ REDIS_URL = 'redis://:mlbj@localhost:6379/2'
 
 # binbaz Setting
 #
-# DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 
 # islamqa Setting
 
-DOWNLOAD_DELAY = 10
-DOWNLOADER_MIDDLEWARES = {
-   'MslSpider.middlewares.SeleniumMiddleware': 543,
-}
+# DOWNLOAD_DELAY = 10
+# DOWNLOADER_MIDDLEWARES = {
+#    'MslSpider.middlewares.SeleniumMiddleware': 543,
+# }
