@@ -44,22 +44,30 @@ class BinbazSpider(CrawlSpider):
         i['tag'] = response.xpath('//div[@class="categories"]/*[4]/text()').extract_first()
         i['categories'] = response.xpath('//div[@class="categories"]/*[2]/text()').extract_first()
         question_list = response.xpath('//h2[@itemprop="alternativeHeadline"]//text()').extract()
-        # q_list = (q.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
-        #           for q in question_list)
-        i['question'] = ' '.join(question_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ")\
+        # q_list = [q.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
+        #           .replace("   ", '')for q in question_list]
+        # i['question'] = ' '.join(q_list)
+        i['question'] = ' '.join(question_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
             .replace("\r", " ")
         answer_list = response.xpath('//p[@itemprop="articleBody"][1]/following-sibling::*/text()').extract()
-        # a_list = (a.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
-        #           for a in answer_list)
-        i['answer'] = ' '.join(answer_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ")\
+        # a_list = [a.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
+        #           .replace("   ", '')for a in answer_list
+        # i['answer'] = ' '.join(a_list)
+        i['answer'] = ' '.join(answer_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
             .replace("\r", " ")
         i['url_mark'] = m.hexdigest()
-        i['r_type'] = "fatws"
+        i['r_type'] = "binbaz"
+        i['lang'] = "ar"
 
         # i['domain_id'] = response.xpath('//input[@id="sid"]/@value').extract()
         # i['name'] = response.xpath('//div[@id="name"]').extract()
         # i['description'] = response.xpath('//div[@id="description"]').extract()
         return i
+
+    def parse_page(self, response):
+        a_link = response.xpath('//a/@href').extract()
+        for link in a_link:
+            yield Request(link)
 
     def parse_audios(self, response):
         """
