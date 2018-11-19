@@ -33,7 +33,7 @@ class MslspiderPipeline(object):
         return item
 
     def is_exist(self, mark):
-        sql = f'SELECT count(*) FROM religion WHERE url_mark =\'{mark}\';'
+        sql = f'SELECT count(*) FROM religion2 WHERE url_mark =\'{mark}\';'
         print(sql)
         try:
             self.db.ping(reconnect=True)
@@ -46,9 +46,9 @@ class MslspiderPipeline(object):
             raise e
 
     def add_content(self, item):
-        sql = f'INSERT INTO religion(title, tag, categories, question, answer, url_mark, r_type) ' \
+        sql = f'INSERT INTO religion2(title, tag, categories, question, answer, url_mark, r_type, lang) ' \
               f'values (\'{item["title"]}\', \'{item["tag"]}\', \'{item["categories"]}\', \'{item["question"]}\', ' \
-              f'\'{item["answer"]}\',\'{item["url_mark"]}\', \'{item["r_type"]}\')'
+              f'\'{item["answer"]}\',\'{item["url_mark"]}\', \'{item["r_type"]}\', \'{item["lang"]}\')'
         print(sql)
         try:
             self.db.ping(reconnect=True)
