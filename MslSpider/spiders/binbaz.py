@@ -43,9 +43,10 @@ class BinbazSpider(CrawlSpider):
         i['title'] = ''.join(title).replace('\n', '').replace('n\\', '').replace('   ', '')
         i['tag'] = response.xpath('//div[@class="categories"]/*[4]/text()').extract_first()
         i['categories'] = response.xpath('//div[@class="categories"]/*[2]/text()').extract_first()
-        question_list = response.xpath('//h2[@itemprop="alternativeHeadline"]//text()').extract()
-        # q_list = [q.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
-        #           .replace("   ", '')for q in question_list]
+        # question_list = response.xpath('//h2[@itemprop="alternativeHeadline"]//text()').extract()
+        question_list = response.xpath('//p[@itemprop="articleBody"][1]/preceding-sibling::p//text()').extract()
+        # q_list = [' '.join(q.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ")
+        #           .replace("\r", " ").split()) for q in question_list]
         # i['question'] = ' '.join(q_list)
         i['question'] = ' '.join(question_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
             .replace("\r", " ")
