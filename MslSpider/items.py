@@ -16,6 +16,7 @@ class MslspiderItem(scrapy.Item):
     categories = scrapy.Field()
     question = scrapy.Field()
     answer = scrapy.Field()
+    qa_id = scrapy.Field()
     url_mark = scrapy.Field()
     r_type = scrapy.Field()
     lang = scrapy.Field()
