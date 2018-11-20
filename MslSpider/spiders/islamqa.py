@@ -72,7 +72,7 @@ class IslamqaSpider(CrawlSpider):
         #     .replace("\r", " ")
         i['question'] = ' '.join(q_list)
         answer_list = response.xpath(
-            '/html/body/section/div[1]/div/section/div/div[2]/section/section/div/p/text()').extract()
+            '/html/body/section/div[1]/div/section/div/div[2]/section/section/div//text()').extract()
         a_list = [a.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
                   .replace("   ", '') for a in answer_list]
         # answer = ' '.join(answer_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
