@@ -158,7 +158,7 @@ REDIS_URL = 'redis://:mlbj@localhost:6379/3'
 # REDIS_ENCODING = 'latin1'
 
 
-# binbaz Setting
+# binbaz Settings
 
 binbaz_settings = {
     'DOWNLOAD_DELAY': 3,
@@ -166,7 +166,7 @@ binbaz_settings = {
 }
 
 
-# islamqa Setting
+# islamqa Settings
 islamqa_settings = {
     'DOWNLOAD_DELAY': 6,
     'DEPTH_LIMIT': 100,
@@ -174,4 +174,10 @@ islamqa_settings = {
     'DOWNLOADER_MIDDLEWARES': {
         'MslSpider.middlewares.SeleniumMiddleware': 543,
     }
+}
+
+# islamweb Settings
+islamweb_settings = {
+    'DOWNLOAD_DELAY': 3,
+    'TABLE_NAME': 'religion7',
 }
