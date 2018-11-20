@@ -33,7 +33,7 @@ class MslspiderPipeline(object):
         return item
 
     def is_exist(self, mark):
-        sql = f'SELECT count(*) FROM religion3 WHERE url_mark =\'{mark}\';'
+        sql = f'SELECT count(*) FROM religion4 WHERE url_mark =\'{mark}\';'
         print(sql)
         try:
             self.db.ping(reconnect=True)
@@ -51,7 +51,7 @@ class MslspiderPipeline(object):
         #       f'\'{escape_string(item["categories"])}\', \'{escape_string(item["question"])}\', ' \
         #       f'\'{item["answer"]}\', \'{item["qa_id"]}\', \'{item["url_mark"]}\', \'{item["r_type"]}\', ' \
         #       f'\'{item["lang"]}\')'
-        sql = "INSERT INTO religion3(title, tag, categories, question, answer, qa_id, url_mark, r_type, lang) values" \
+        sql = "INSERT INTO religion4(title, tag, categories, question, answer, qa_id, url_mark, r_type, lang) values" \
               "(%s, %s, %s, %s, %s, %s, %s, %s, %s);"
         print("Do Insert ...")
         try:
