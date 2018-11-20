@@ -21,7 +21,7 @@ USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 3
+# CONCURRENT_REQUESTS = 5
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -88,6 +88,8 @@ ITEM_PIPELINES = {
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+DEPTH_STATS_VERBOSE = True
 
 # Scrapy Reids Config
 # Enables scheduling storing requests queue in redis.
@@ -161,13 +163,16 @@ REDIS_URL = 'redis://:mlbj@localhost:6379/3'
 # binbaz Settings
 
 binbaz_settings = {
-    'DOWNLOAD_DELAY': 3,
+    'CONCURRENT_REQUESTS': 5,
+    'DOWNLOAD_DELAY': 1,
+    'DEPTH_LIMIT': 100,
     'TABLE_NAME': 'religion4'
 }
 
 
 # islamqa Settings
 islamqa_settings = {
+    'CONCURRENT_REQUESTS': 3,
     'DOWNLOAD_DELAY': 6,
     'DEPTH_LIMIT': 100,
     'TABLE_NAME': 'religion6',
@@ -178,6 +183,8 @@ islamqa_settings = {
 
 # islamweb Settings
 islamweb_settings = {
-    'DOWNLOAD_DELAY': 3,
+    'CONCURRENT_REQUESTS': 5,
+    'DOWNLOAD_DELAY': 1,
+    'DEPTH_LIMIT': 100,
     'TABLE_NAME': 'religion7',
 }
