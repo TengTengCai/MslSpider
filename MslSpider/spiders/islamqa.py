@@ -10,6 +10,7 @@ from MslSpider.items import MslspiderItem
 
 
 class IslamqaSpider(CrawlSpider):
+    """ islamqa.info问答爬虫 """
     name = 'islamqa'
     allowed_domains = ['islamqa.info']
     start_urls = ['https://islamqa.info/ar/']
@@ -27,6 +28,11 @@ class IslamqaSpider(CrawlSpider):
     )
 
     def start_requests(self):
+        """
+        动态添加Scrapy的爬取初始链接
+
+        :return Request:  请求对象
+        """
         lang_list = [
             'ar',   # 阿拉伯语
             'zh',   # 中文
@@ -51,6 +57,12 @@ class IslamqaSpider(CrawlSpider):
                 yield Request(new_url)
 
     def parse_normal(self, response):
+        """
+        解析爬取的问答页面
+
+        :param response: 响应对象
+        :return MslspiderItem: 数据对象
+        """
         m = hashlib.md5()
         m.update(str(response.url).encode('utf-8'))
         i = MslspiderItem()
@@ -90,6 +102,12 @@ class IslamqaSpider(CrawlSpider):
         return i
 
     def parse_new_page(self, response):
+        """
+        将链接添加到访问队列中
+
+        :param response:    响应对象
+        :return Request:    页面中的请求对象
+        """
         a_link = response.xpath('//a/@href').extract()
         for link in a_link:
             yield Request(link)

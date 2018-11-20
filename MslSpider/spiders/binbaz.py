@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import hashlib
 
-import scrapy
 from scrapy import Request
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
@@ -23,18 +22,23 @@ class BinbazSpider(CrawlSpider):
     )
 
     def start_requests(self):
+        """
+        动态添加Scrapy的爬取初始链接
+
+        :return Request: 请求对象
+        """
         for i in range(1, 400):
-            newUrl = f'https://binbaz.org.sa/categories/fiqhi/{i}'
-            print("当前抓取的 Url 是：" + newUrl)
-            yield Request(newUrl)
+            new_url = f'https://binbaz.org.sa/categories/fiqhi/{i}'
+            print("当前抓取的 Url 是：" + new_url)
+            yield Request(new_url)
 
     def parse_fatwas(self, response):
         """
+        页面解析方法
         title, tag, categories, question, answer, mark
 
-
-        :param response:
-        :return:
+        :param response:    响应对象
+        :return MslspiderItem: 爬取的数据对象
         """
         m = hashlib.md5()
         m.update(str(response.url).encode('utf-8'))
@@ -65,27 +69,12 @@ class BinbazSpider(CrawlSpider):
         return i
 
     def parse_page(self, response):
+        """
+        将链接添加到访问队列中
+
+        :param response:    响应对象
+        :return Request:    页面中的请求对象
+        """
         a_link = response.xpath('//a/@href').extract()
         for link in a_link:
             yield Request(link)
-
-    def parse_audios(self, response):
-        """
-        title, tag, categories, question, answer, mark
-        :param response:
-        :return:
-        """
-        m = hashlib.md5()
-        m.update(response.url)
-        i = MslspiderItem()
-        i.title = response.xpath('')
-        i.categories = response.xpath('')
-        i.tag = i.categories
-        i.question = i.title
-        i.answer = response.xpath('')
-        i.url_mark = m.hexdigest()
-        i.r_type = "audios"
-        # i['domain_id'] = response.xpath('//input[@id="sid"]/@value').extract()
-        # i['name'] = response.xpath('//div[@id="name"]').extract()
-        # i['description'] = response.xpath('//div[@id="description"]').extract()
-        return i
