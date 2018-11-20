@@ -52,13 +52,13 @@ class MslspiderPipeline(object):
         #       f'\'{escape_string(item["categories"])}\', \'{escape_string(item["question"])}\', ' \
         #       f'\'{item["answer"]}\', \'{item["qa_id"]}\', \'{item["url_mark"]}\', \'{item["r_type"]}\', ' \
         #       f'\'{item["lang"]}\')'
-        sql = "INSERT INTO %s (title, tag, categories, question, answer, qa_id, url_mark, r_type, lang) values" \
-              "(%s, %s, %s, %s, %s, %s, %s, %s, %s);"
+        sql = "INSERT INTO " + table_name + " (title, tag, categories, question, answer, qa_id, url_mark, r_type, " \
+                                            "lang) values (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
         print("Do Insert ...")
         try:
             self.db.ping(reconnect=True)
             with self.db.cursor() as cursor:
-                cursor.execute(sql, (table_name, item['title'], item['tag'], item['categories'], item['question'],
+                cursor.execute(sql, (item['title'], item['tag'], item['categories'], item['question'],
                                      item['answer'], item['qa_id'], item['url_mark'], item['r_type'], item['lang']))
             self.db.commit()
         except DBError as e:

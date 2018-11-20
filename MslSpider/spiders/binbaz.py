@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import hashlib
 import re
+from urllib.parse import urljoin
 
 from scrapy import Request
 from scrapy.linkextractors import LinkExtractor
@@ -19,7 +20,10 @@ class BinbazSpider(CrawlSpider):
     rules = (
         # Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
         Rule(LinkExtractor(allow=r'https://binbaz.org.sa/fatwas/\d+/.*?'), callback='parse_fatwas', follow=True),
+        Rule(LinkExtractor(allow=r'/fatwas/\d+/.*?'), callback='parse_fatwas', follow=True),
         Rule(LinkExtractor(allow=r'https://binbaz.org.sa/categories/fiqhi/\d+?page=\d+'), callback='parse_page',
+             follow=True),
+        Rule(LinkExtractor(allow=r'/categories/fiqhi/\d+?page=\d+'), callback='parse_page',
              follow=True),
         # Rule(LinkExtractor(allow=r'https://binbaz.org.sa/audios/\d+/.*?'), callback='parse_audios', follow=True),
     )
@@ -48,25 +52,16 @@ class BinbazSpider(CrawlSpider):
         i = MslspiderItem()
         title = response.xpath('//h1[@class="article-title article-title--primary"]/text()').extract_first(default='')
         i['title'] = ''.join(title).replace('\n', '').replace('n\\', '').replace('   ', '')
-        i['tag'] = response.xpath('//div[@class="categories"]/*[4]/text()').extract_first(default='')
-        i['categories'] = response.xpath('//div[@class="categories"]/*[2]/text()').extract_first(default='')
-        # question_list = response.xpath('//h2[@itemprop="alternativeHeadline"]//text()').extract()
+        i['tag'] = response.xpath('//div[@class="categories"]/*[4]/text()').extract_first()
+        i['categories'] = response.xpath('//div[@class="categories"]/*[2]/text()').extract_first()
         question_list = response.xpath(
             '//p[@itemprop="articleBody"][1]/preceding-sibling::p//text()|'
             '//p[@itemprop="articleBody"][1]/preceding-sibling::h2//text()').extract()
-        # q_list = [' '.join(q.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ")
-        #           .replace("\r", " ").split()) for q in question_list]
-        # i['question'] = ' '.join(q_list)
         i['question'] = ' '.join(question_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
             .replace("\r", " ").replace("   ", '')
         answer_list = response.xpath('//p[@itemprop="articleBody"][1]/following-sibling::*//text()').extract()
-        if len(answer_list) == 0:
-            answer_list = response.xpath('//p[@itemprop="articleBody"]/text()').extract()
-        # a_list = [a.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
-        #           .replace("   ", '')for a in answer_list
-        # i['answer'] = ' '.join(a_list)
         i['answer'] = ' '.join(answer_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
-            .replace("\r", " ")
+            .replace("\r", " ").replace("   ", '')
         i['qa_id'] = re.search('https://binbaz.org.sa/fatwas/(\d+)/.*?', response.url).group(1)
         i['url_mark'] = m.hexdigest()
         i['r_type'] = "binbaz"
@@ -86,4 +81,5 @@ class BinbazSpider(CrawlSpider):
         """
         a_link = response.xpath('//a/@href').extract()
         for link in a_link:
+            link = urljoin('https://binbaz.org.sa/', link)
             yield Request(link)

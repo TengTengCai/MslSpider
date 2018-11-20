@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import hashlib
 import re
+from urllib.parse import urljoin
 
 from scrapy import Request
 from scrapy.linkextractors import LinkExtractor
@@ -14,7 +15,7 @@ class IslamqaSpider(CrawlSpider):
     """ islamqa.info问答爬虫 """
     name = 'islamqa'
     allowed_domains = ['islamqa.info']
-    start_urls = ['https://islamqa.info/ar/']
+    start_urls = ['https://islamqa.info/']
     custom_settings = islamqa_settings
 
     rules = (
@@ -25,7 +26,11 @@ class IslamqaSpider(CrawlSpider):
         # Rule(LinkExtractor(allow=r'https://islamqa.info/bn/answers/\d+/.*'), callback='parse_bn', follow=True),
         Rule(LinkExtractor(allow=r'https://islamqa.info/[a-z]{2}/answers/\d+/.*'), callback='parse_normal',
              follow=True),
+        Rule(LinkExtractor(allow=r'/[a-z]{2}/answers/\d+/.*'), callback='parse_normal',
+             follow=True),
         Rule(LinkExtractor(allow=r'https://islamqa.info/[a-z]{2}/categories/topics/\d+/.*'), callback='parse_new_page',
+             follow=True),
+        Rule(LinkExtractor(allow=r'/[a-z]{2}/categories/topics/\d+/.*'), callback='parse_new_page',
              follow=True),
     )
 
@@ -112,4 +117,5 @@ class IslamqaSpider(CrawlSpider):
         """
         a_link = response.xpath('//a/@href').extract()
         for link in a_link:
+            link = urljoin('https://islamqa.info/', link)
             yield Request(link)
