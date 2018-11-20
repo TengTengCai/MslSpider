@@ -7,6 +7,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 
 from MslSpider.items import MslspiderItem
+from MslSpider.settings import islamqa_settings
 
 
 class IslamqaSpider(CrawlSpider):
@@ -14,6 +15,7 @@ class IslamqaSpider(CrawlSpider):
     name = 'islamqa'
     allowed_domains = ['islamqa.info']
     start_urls = ['https://islamqa.info/ar/']
+    custom_settings = islamqa_settings
 
     rules = (
         # Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),

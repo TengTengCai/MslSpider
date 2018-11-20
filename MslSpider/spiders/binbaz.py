@@ -6,12 +6,14 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 
 from MslSpider.items import MslspiderItem
+from MslSpider.settings import binbaz_settings
 
 
 class BinbazSpider(CrawlSpider):
     name = 'binbaz'
     allowed_domains = ['binbaz.org.sa']
     start_urls = ['https://binbaz.org.sa/']
+    custom_settings = binbaz_settings
 
     rules = (
         # Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
