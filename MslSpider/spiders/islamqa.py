@@ -28,21 +28,21 @@ class IslamqaSpider(CrawlSpider):
 
     def start_requests(self):
         lang_list = [
-            'ar',
-            'zh',
-            'en',
-            'bn',
-            'ug',
-            'tr',
-            'ru',
-            'pt',
-            'id',
-            'hi',
-            'ge',
-            'fr',
-            'fa',
-            'es',
-            'ur',
+            'ar',   # 阿拉伯语
+            'zh',   # 中文
+            'en',   # 英文
+            'bn',   # 孟加拉语
+            'ug',   # 维吾尔族语
+            'tr',   # 土耳其语
+            'ru',   # 俄语
+            'pt',   # 葡萄牙语
+            'id',   # 印度尼西亚语
+            'hi',   # 菲律宾语
+            'ge',   # 德语
+            'fr',   # 法语
+            'fa',   # 波斯语
+            'es',   # 西班牙语
+            'ur',   # 乌尔都语
         ]
         for k in lang_list:
             for i in range(1, 300):
