@@ -52,8 +52,8 @@ class BinbazSpider(CrawlSpider):
         i = MslspiderItem()
         title = response.xpath('//h1[@class="article-title article-title--primary"]/text()').extract_first(default='')
         i['title'] = ''.join(title).replace('\n', '').replace('n\\', '').replace('   ', '')
-        i['tag'] = response.xpath('//div[@class="categories"]/*[4]/text()').extract_first()
-        i['categories'] = response.xpath('//div[@class="categories"]/*[2]/text()').extract_first()
+        i['tag'] = response.xpath('//div[@class="categories"]/*[4]/text()').extract_first(default='')
+        i['categories'] = response.xpath('//div[@class="categories"]/*[2]/text()').extract_first(default='')
         question_list = response.xpath(
             '//p[@itemprop="articleBody"][1]/preceding-sibling::p//text()|'
             '//p[@itemprop="articleBody"][1]/preceding-sibling::h2//text()').extract()
