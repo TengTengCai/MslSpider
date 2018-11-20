@@ -15,10 +15,11 @@ class IslamqaSpider(CrawlSpider):
 
     rules = (
         # Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
-        Rule(LinkExtractor(allow=r'https://islamqa.info/ar/answers/\d+/.*?'), callback='parse_ar', follow=True),
-        Rule(LinkExtractor(allow=r'https://islamqa.info/zh/answers/\d+/.*?'), callback='parse_zh', follow=True),
-        Rule(LinkExtractor(allow=r'https://islamqa.info/en/answers/\d+/.*?'), callback='parse_en', follow=True),
-        Rule(LinkExtractor(allow=r'https://islamqa.info/[a-z]{2}/categories/topics/\d+/.*?'), callback='parse_new_page',
+        Rule(LinkExtractor(allow=r'https://islamqa.info/ar/answers/\d+/.*'), callback='parse_ar', follow=True),
+        Rule(LinkExtractor(allow=r'https://islamqa.info/zh/answers/\d+/.*'), callback='parse_zh', follow=True),
+        Rule(LinkExtractor(allow=r'https://islamqa.info/en/answers/\d+/.*'), callback='parse_en', follow=True),
+        Rule(LinkExtractor(allow=r'https://islamqa.info/bn/answers/\d+/.*'), callback='parse_en', follow=True),
+        Rule(LinkExtractor(allow=r'https://islamqa.info/[a-z]{2}/categories/topics/\d+/.*'), callback='parse_new_page',
              follow=True),
     )
 

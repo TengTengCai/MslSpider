@@ -165,6 +165,7 @@ REDIS_URL = 'redis://:mlbj@localhost:6379/2'
 # islamqa Setting
 
 DOWNLOAD_DELAY = 15
+DEPTH_LIMIT = 100
 DOWNLOADER_MIDDLEWARES = {
    'MslSpider.middlewares.SeleniumMiddleware': 543,
 }
