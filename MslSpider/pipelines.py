@@ -33,7 +33,7 @@ class MslspiderPipeline(object):
         return item
 
     def is_exist(self, mark):
-        sql = f'SELECT count(*) FROM religion5 WHERE url_mark =\'{mark}\';'
+        sql = f'SELECT count(*) FROM religion6 WHERE url_mark =\'{mark}\';'
         print(sql)
         try:
             self.db.ping(reconnect=True)
@@ -46,14 +46,14 @@ class MslspiderPipeline(object):
             raise e
 
     def add_content(self, item):
-        # sql = f'INSERT INTO religion5(title, tag, categories, question, answer, qa_id, url_mark, r_type, lang) ' \
+        # sql = f'INSERT INTO religion6(title, tag, categories, question, answer, qa_id, url_mark, r_type, lang) ' \
         #       f'values (\'{escape_string(item["title"])}\', \'{escape_string(item["tag"])}\', ' \
         #       f'\'{escape_string(item["categories"])}\', \'{escape_string(item["question"])}\', ' \
         #       f'\'{item["answer"]}\', \'{item["qa_id"]}\', \'{item["url_mark"]}\', \'{item["r_type"]}\', ' \
         #       f'\'{item["lang"]}\')'
-        sql = "INSERT INTO religion5(title, tag, categories, question, answer, qa_id, url_mark, r_type, lang) values" \
-              "('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');"
-        print(sql)
+        sql = "INSERT INTO religion6(title, tag, categories, question, answer, qa_id, url_mark, r_type, lang) values" \
+              "(%s, %s, %s, %s, %s, %s, %s, %s, %s);"
+        print("Do Insert ...")
         try:
             self.db.ping(reconnect=True)
             with self.db.cursor() as cursor:
