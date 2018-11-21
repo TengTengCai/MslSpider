@@ -216,8 +216,8 @@ PROXY_IP_LIST = [
 # binbaz Settings
 
 binbaz_settings = {
-    'CONCURRENT_REQUESTS': 10,
-    'DOWNLOAD_DELAY': 1,
+    'CONCURRENT_REQUESTS': 16,
+    'DOWNLOAD_DELAY': 0.25,
     'DEPTH_LIMIT': 100,
     'TABLE_NAME': 'religion8'
 }
@@ -236,8 +236,8 @@ islamqa_settings = {
 
 # islamweb Settings
 islamweb_settings = {
-    'CONCURRENT_REQUESTS': 10,
-    'DOWNLOAD_DELAY': 1,
+    'CONCURRENT_REQUESTS': 16,
+    'DOWNLOAD_DELAY': 0.25,
     'DEPTH_LIMIT': 100,
     'TABLE_NAME': 'religion10',
 }
