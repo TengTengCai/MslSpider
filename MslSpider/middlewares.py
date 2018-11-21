@@ -8,6 +8,7 @@ import time
 from logging import getLogger
 
 from scrapy import signals
+from scrapy.exceptions import CloseSpider
 from scrapy.http import HtmlResponse
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -150,9 +151,26 @@ class SeleniumMiddleware(object):
 
 
 class SetUserAgentAndProxyMiddleware(object):
+    def __init__(self):
+        self._error_times = 0
+
     def process_request(self, request, spider):
         user_agent = choice(USER_AGENT_LIST)
         proxy_https = choice(PROXY_IP_LIST)
         if user_agent:
             request.headers.setdefault('User-Agent', user_agent)
             request.meta['proxy'] = 'http://' + proxy_https
+
+    def process_response(self, request, response, spider):
+        # Called with the response returned from the downloader.
+
+        # Must either;
+        # - return a Response object
+        # - return a Request object
+        # - or raise IgnoreRequest
+        if response.status == 400:
+            self._error_times += 1
+        if self._error_times > 10:
+            spider.crawler.engine.close_spider(spider, 'Request Bad')
+
+        return response
