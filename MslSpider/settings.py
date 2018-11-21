@@ -140,7 +140,7 @@ SCHEDULER_PERSIST = True
 
 # Specify the full Redis URL for connecting (optional).
 # If set, this takes precedence over the REDIS_HOST and REDIS_PORT settings.
-REDIS_URL = 'redis://:mlbj@localhost:6379/2'
+REDIS_URL = 'redis://:mlbj@localhost:6379/3'
 
 # Custom redis client parameters (i.e.: socket timeout, etc.)
 # REDIS_PARAMS  = {}
