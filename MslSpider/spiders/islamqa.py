@@ -26,12 +26,12 @@ class IslamqaSpider(CrawlSpider):
         # Rule(LinkExtractor(allow=r'https://islamqa.info/bn/answers/\d+/.*'), callback='parse_bn', follow=True),
         Rule(LinkExtractor(allow=r'https://islamqa.info/[a-z]{2}/answers/\d+/.*'), callback='parse_normal',
              follow=True),
-        Rule(LinkExtractor(allow=r'/[a-z]{2}/answers/\d+/.*'), callback='parse_normal',
-             follow=True),
+        # Rule(LinkExtractor(allow=r'/[a-z]{2}/answers/\d+/.*'), callback='parse_normal',
+        #      follow=True),
         Rule(LinkExtractor(allow=r'https://islamqa.info/[a-z]{2}/categories/topics/\d+/.*'), callback='parse_new_page',
              follow=True),
-        Rule(LinkExtractor(allow=r'/[a-z]{2}/categories/topics/\d+/.*'), callback='parse_new_page',
-             follow=True),
+        # Rule(LinkExtractor(allow=r'/[a-z]{2}/categories/topics/\d+/.*'), callback='parse_new_page',
+        #      follow=True),
     )
 
     def start_requests(self):
@@ -73,7 +73,7 @@ class IslamqaSpider(CrawlSpider):
         m = hashlib.md5()
         m.update(str(response.url).encode('utf-8'))
         i = MslspiderItem()
-        i['title'] = response.xpath('//h1[@itemprop="name"]/text()').extract_first().replace('\n', '') \
+        i['title'] = response.xpath('//h1[@itemprop="name"]/text()').extract_first(default='').replace('\n', '') \
             .replace('   ', '')
         nav = response.xpath('//nav[@aria-label="breadcrumbs"]')
         if len(nav) > 0:
@@ -89,14 +89,14 @@ class IslamqaSpider(CrawlSpider):
                   .replace("   ", '') for q in question_list]
         # i['question'] = ' '.join(question_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
         #     .replace("\r", " ")
-        i['question'] = ' '.join(q_list)
+        i['question'] = '\r\n'.join(q_list).replace('\r\n\r\n', '')
         answer_list = response.xpath(
             '/html/body/section/div[1]/div/section/div/div[2]/section/section/div//text()').extract()
         a_list = [a.strip("\n\r").replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ").replace("\r", " ")
                   .replace("   ", '') for a in answer_list]
         # answer = ' '.join(answer_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
         #     .replace("\r", " ")
-        answer = ' '.join(a_list)
+        answer = '\r\n'.join(a_list).replace('\r\n\r\n', '')
         i['answer'] = answer
         qa_id = response.xpath('/html/body/section/div[1]/div/section/div/div[1]/div/div[1]/div[1]/p/text()') \
             .extract()[1].split()[0]

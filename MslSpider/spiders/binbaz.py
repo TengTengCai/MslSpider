@@ -19,12 +19,12 @@ class BinbazSpider(CrawlSpider):
 
     rules = (
         # Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
-        Rule(LinkExtractor(allow=r'https://binbaz.org.sa/fatwas/\d+/.*?'), callback='parse_fatwas', follow=True),
-        Rule(LinkExtractor(allow=r'/fatwas/\d+/.*?'), callback='parse_fatwas', follow=True),
-        Rule(LinkExtractor(allow=r'https://binbaz.org.sa/categories/fiqhi/\d+?page=\d+'), callback='parse_page',
+        Rule(LinkExtractor(allow=r'https://binbaz.org.sa/fatwas/\d+/.*'), callback='parse_fatwas', follow=True),
+        # Rule(LinkExtractor(allow=r'/fatwas/\d+/.*?'), callback='parse_fatwas', follow=True),
+        Rule(LinkExtractor(allow=r'https://binbaz.org.sa/categories/fiqhi/\d+[/fatwa]?[?page=\d+.*]?'), callback='parse_page',
              follow=True),
-        Rule(LinkExtractor(allow=r'/categories/fiqhi/\d+?page=\d+'), callback='parse_page',
-             follow=True),
+        # Rule(LinkExtractor(allow=r'/categories/fiqhi/\d+?page=\d+'), callback='parse_page',
+        #      follow=True),
         # Rule(LinkExtractor(allow=r'https://binbaz.org.sa/audios/\d+/.*?'), callback='parse_audios', follow=True),
     )
 
@@ -57,11 +57,13 @@ class BinbazSpider(CrawlSpider):
         question_list = response.xpath(
             '//p[@itemprop="articleBody"][1]/preceding-sibling::p//text()|'
             '//p[@itemprop="articleBody"][1]/preceding-sibling::h2//text()').extract()
-        i['question'] = ' '.join(question_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
-            .replace("\r", " ").replace("   ", '')
+        q_list = [str(q).replace("\r\n", " ").replace("\n", " ").replace("\r", " ").replace("   ", '')
+                  for q in question_list]
+        i['question'] = '\r\n'.join(q_list).replace('\r\n\r\n', '')
         answer_list = response.xpath('//p[@itemprop="articleBody"][1]/following-sibling::*//text()').extract()
-        i['answer'] = ' '.join(answer_list).replace("r\n\\", " ").replace("\r\n", " ").replace("\n", " ") \
-            .replace("\r", " ").replace("   ", '')
+        a_list = [str(a).replace("\r\n", " ").replace("\n", " ").replace("\r", " ").replace("   ", '')
+                  for a in answer_list]
+        i['answer'] = '\r\n'.join(a_list).replace('\r\n\r\n', '')
         i['qa_id'] = re.search('https://binbaz.org.sa/fatwas/(\d+)/.*?', response.url).group(1)
         i['url_mark'] = m.hexdigest()
         i['r_type'] = "binbaz"
