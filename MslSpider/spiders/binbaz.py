@@ -20,11 +20,11 @@ class BinbazSpider(CrawlSpider):
     rules = (
         # Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),
         Rule(LinkExtractor(allow=r'https://binbaz.org.sa/fatwas/\d+/.*?'), callback='parse_fatwas', follow=True),
-        Rule(LinkExtractor(allow=r'/fatwas/\d+/.*?'), callback='parse_fatwas', follow=True),
+        # Rule(LinkExtractor(allow=r'/fatwas/\d+/.*?'), callback='parse_fatwas', follow=True),
         Rule(LinkExtractor(allow=r'https://binbaz.org.sa/categories/fiqhi/\d+?page=\d+'), callback='parse_page',
              follow=True),
-        Rule(LinkExtractor(allow=r'/categories/fiqhi/\d+?page=\d+'), callback='parse_page',
-             follow=True),
+        # Rule(LinkExtractor(allow=r'/categories/fiqhi/\d+?page=\d+'), callback='parse_page',
+        #      follow=True),
         # Rule(LinkExtractor(allow=r'https://binbaz.org.sa/audios/\d+/.*?'), callback='parse_audios', follow=True),
     )
 

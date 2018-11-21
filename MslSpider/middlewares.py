@@ -13,6 +13,10 @@ from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.support.wait import WebDriverWait
+from random import choice
+
+from MslSpider.settings import USER_AGENT_LIST
+from MslSpider.settings import PROXY_IP_LIST
 
 
 class MslspiderSpiderMiddleware(object):
@@ -116,7 +120,8 @@ class SeleniumMiddleware(object):
         self.timeout = timeout
         # dcap = dict(DesiredCapabilities.PHANTOMJS)
         dcap = dict(DesiredCapabilities.CHROME)
-        dcap["phantomjs.page.settings.userAgent"] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36"
+        dcap[
+            "phantomjs.page.settings.userAgent"] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36"
         # self.browser = webdriver.PhantomJS(desired_capabilities=dcap)
         self.browser = webdriver.Chrome(desired_capabilities=dcap)
         self.browser.set_window_size(1400, 700)
@@ -142,3 +147,12 @@ class SeleniumMiddleware(object):
                                 request=request, encoding='utf-8')
         except TimeoutException:
             return HtmlResponse(url=request.url, status=500, request=request)
+
+
+class SetUserAgentAndProxyMiddleware(object):
+    def process_request(self, request, spider):
+        user_agent = choice(USER_AGENT_LIST)
+        proxy_https = choice(PROXY_IP_LIST)
+        if user_agent:
+            request.headers.setdefault('User-Agent', user_agent)
+            request.meta['proxy'] = 'http://' + proxy_https

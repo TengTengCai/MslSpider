@@ -159,6 +159,46 @@ REDIS_URL = 'redis://:mlbj@localhost:6379/3'
 # Use other encoding than utf-8 for redis.
 # REDIS_ENCODING = 'latin1'
 
+# 用户代理列表
+USER_AGENT_LIST = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 5.1; rv:7.0.1) Gecko/20100101 Firefox/7.0.1",
+    "Mozilla/5.0 (Linux; U; Android 4.4.2; zh-CN; HUAWEI MT7-TL00 Build/HuaweiMT7-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/40.0.2214.89 UCBrowser/11.3.8.909 Mobile Safari/537.36",
+    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1",
+    "Mozilla/5.0 (X11; CrOS i686 2268.111.0) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11",
+    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6",
+    "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6",
+    "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/19.77.34.5 Safari/537.1",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5",
+    "Mozilla/5.0 (Windows NT 6.0) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.36 Safari/536.5",
+    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3",
+    "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3",
+    "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1062.0 Safari/536.3",
+    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1062.0 Safari/536.3",
+    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; 360SE)",
+    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3",
+    "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3",
+    "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.0 Safari/536.3",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24",
+    "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24",
+]
+
+# IP代理列表
+PROXY_IP_LIST = [
+    "140.227.71.120:3128",
+    "165.227.120.140:8080",
+    "206.190.217.118:53281",
+    "66.96.244.206:8080",
+    "216.211.182.43:53281",
+    "13.209.8.211:80",
+    "208.98.186.80:53630",
+    "73.244.187.99:53281",
+    "67.134.17.132:8080",
+    "159.65.120.163:80",
+    "150.95.80.19:3128",
+    "163.53.149.206:21231",
+]
 
 # binbaz Settings
 
@@ -169,21 +209,21 @@ binbaz_settings = {
     'TABLE_NAME': 'religion8'
 }
 
-
 # islamqa Settings
 islamqa_settings = {
-    'CONCURRENT_REQUESTS': 10,
-    'DOWNLOAD_DELAY': 2,
+    'CONCURRENT_REQUESTS': 16,
+    'DOWNLOAD_DELAY': 0.25,
     'DEPTH_LIMIT': 100,
     'TABLE_NAME': 'religion9',
-    # 'DOWNLOADER_MIDDLEWARES': {
-    #     'MslSpider.middlewares.SeleniumMiddleware': 543,
-    # }
+    'DOWNLOADER_MIDDLEWARES': {
+        # 'MslSpider.middlewares.SeleniumMiddleware': 543,
+        'MslSpider.middlewares.SetUserAgentAndProxyMiddleware': 500,
+    }
 }
 
 # islamweb Settings
 islamweb_settings = {
-    'CONCURRENT_REQUESTS': 5,
+    'CONCURRENT_REQUESTS': 10,
     'DOWNLOAD_DELAY': 1,
     'DEPTH_LIMIT': 100,
     'TABLE_NAME': 'religion10',
