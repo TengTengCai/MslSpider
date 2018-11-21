@@ -10,14 +10,21 @@ import time
 import pymysql
 from pymysql import Error as DBError
 
+from MslSpider.settings import DB_SETTINGS
+
 
 class MslspiderPipeline(object):
     def __init__(self):
-        self.db = pymysql.connect(host='127.0.0.1',
-                                  user='root',
-                                  password='123456',
-                                  port=3306,
-                                  db='msl_spider')
+        self._host = DB_SETTINGS.get('host')
+        self._port = DB_SETTINGS.get('port')
+        self._user = DB_SETTINGS.get('user')
+        self._password = DB_SETTINGS.get('password')
+        self._db_name = DB_SETTINGS.get('db')
+        self.db = pymysql.connect(host=self._host,
+                                  user=self._user,
+                                  password=self._password,
+                                  port=self._port,
+                                  db=self._db_name)
         self.db.set_charset('utf8')
         # self.cursor = self.db.cursor()
 

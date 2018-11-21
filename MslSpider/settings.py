@@ -140,7 +140,8 @@ SCHEDULER_PERSIST = True
 
 # Specify the full Redis URL for connecting (optional).
 # If set, this takes precedence over the REDIS_HOST and REDIS_PORT settings.
-REDIS_URL = 'redis://:mlbj@localhost:6379/3'
+REDIS_URL = 'redis://:mlbj@120.79.52.3:6379/3'
+# REDIS_URL = 'redis://:mlbj@127.0.0.1:6379/3'
 
 # Custom redis client parameters (i.e.: socket timeout, etc.)
 # REDIS_PARAMS  = {}
@@ -213,8 +214,17 @@ PROXY_IP_LIST = [
     "71.78.173.26:54957",
 ]
 
-# binbaz Settings
 
+DB_SETTINGS = {
+    'host': '120.79.52.3',
+    # 'host': '127.0.0.1',
+    'port': 3306,
+    'user': 'root',
+    'password': '123456',
+    'db': 'msl_spider'
+}
+
+# binbaz Settings
 binbaz_settings = {
     'CONCURRENT_REQUESTS': 16,
     'DOWNLOAD_DELAY': 0.25,
