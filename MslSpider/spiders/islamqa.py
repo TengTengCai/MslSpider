@@ -28,8 +28,8 @@ class IslamqaSpider(CrawlSpider):
              follow=True),
         # Rule(LinkExtractor(allow=r'/[a-z]{2}/answers/\d+/.*'), callback='parse_normal',
         #      follow=True),
-        Rule(LinkExtractor(allow=r'https://islamqa.info/[a-z]{2}/categories/topics/\d+/.*'), callback='parse_new_page',
-             follow=True),
+        Rule(LinkExtractor(allow=r'https://islamqa.info/[a-z]{2}/categories/topics/\d+/.*[?page=\d+]?'),
+             callback='parse_new_page', follow=True),
         # Rule(LinkExtractor(allow=r'/[a-z]{2}/categories/topics/\d+/.*'), callback='parse_new_page',
         #      follow=True),
     )

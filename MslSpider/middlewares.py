@@ -156,10 +156,10 @@ class SetUserAgentAndProxyMiddleware(object):
 
     def process_request(self, request, spider):
         user_agent = choice(USER_AGENT_LIST)
-        proxy_https = choice(PROXY_IP_LIST)
+        # proxy_https = choice(PROXY_IP_LIST)
         if user_agent:
             request.headers.setdefault('User-Agent', user_agent)
-            request.meta['proxy'] = 'http://' + proxy_https
+            # request.meta['proxy'] = 'http://' + proxy_https
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
