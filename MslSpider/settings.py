@@ -163,22 +163,22 @@ REDIS_URL = 'redis://:mlbj@localhost:6379/3'
 # binbaz Settings
 
 binbaz_settings = {
-    'CONCURRENT_REQUESTS': 5,
+    'CONCURRENT_REQUESTS': 10,
     'DOWNLOAD_DELAY': 1,
     'DEPTH_LIMIT': 100,
-    'TABLE_NAME': 'religion4'
+    'TABLE_NAME': 'religion8'
 }
 
 
 # islamqa Settings
 islamqa_settings = {
-    'CONCURRENT_REQUESTS': 3,
-    'DOWNLOAD_DELAY': 6,
+    'CONCURRENT_REQUESTS': 10,
+    'DOWNLOAD_DELAY': 2,
     'DEPTH_LIMIT': 100,
-    'TABLE_NAME': 'religion6',
-    'DOWNLOADER_MIDDLEWARES': {
-        'MslSpider.middlewares.SeleniumMiddleware': 543,
-    }
+    'TABLE_NAME': 'religion9',
+    # 'DOWNLOADER_MIDDLEWARES': {
+    #     'MslSpider.middlewares.SeleniumMiddleware': 543,
+    # }
 }
 
 # islamweb Settings
@@ -186,5 +186,5 @@ islamweb_settings = {
     'CONCURRENT_REQUESTS': 5,
     'DOWNLOAD_DELAY': 1,
     'DEPTH_LIMIT': 100,
-    'TABLE_NAME': 'religion7',
+    'TABLE_NAME': 'religion10',
 }

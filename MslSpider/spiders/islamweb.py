@@ -54,10 +54,12 @@ class IslamwebSpider(CrawlSpider):
             i["title"] = ' '.join(title_list).replace('\r\n', '').replace('\t', '').replace('   ', '')
             i["tag"] = response.xpath('//ol/li/a/text()').extract()[-1].replace('\r\n', '')
             i["categories"] = response.xpath('//ol/li/a/text()').extract()[1].replace('\r\n', '')
-            q_list = response.xpath('/html/body/div/div[1]/section/div[1]/div[3]/p//text()').extract()
-            i["question"] = '   '.join(q_list).replace('\r\n', '').replace('\t', '')
-            a_list = response.xpath('/html/body/div/div[1]/section/div[1]/div[5]/p//text()').extract()
-            i['answer'] = '   '.join(a_list).replace('\xa0', ' ').replace('\r\n', '').replace('\t', '')
+            question_list = response.xpath('/html/body/div/div[1]/section/div[1]/div[3]/p//text()').extract()
+            q_list = [str(q).replace('\r\n', '').replace('\t', '') for q in question_list]
+            i["question"] = '\r\n'.join(q_list).replace('\r\n\r\n', '')
+            answer_list = response.xpath('/html/body/div/div[1]/section/div[1]/div[5]/p//text()').extract()
+            a_list = [str(a).replace('\xa0', ' ').replace('\r\n', '').replace('\t', '') for a in answer_list]
+            i['answer'] = '\r\n'.join(a_list).replace('\r\n\r\n', '')
             i['qa_id'] = re.search('http://fatwa.islamweb.net/[a-z]{2}/fatwa/(\d+)/.*', response.url).group(1)
             i['url_mark'] = m.hexdigest()
             i['r_type'] = 'islamweb'
