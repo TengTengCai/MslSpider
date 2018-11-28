@@ -21,3 +21,18 @@ class MslspiderItem(scrapy.Item):
     r_type = scrapy.Field()
     lang = scrapy.Field()
     pass
+
+
+class MslspiderBinbazItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    title = scrapy.Field()
+    objective = scrapy.Field()
+    legal = scrapy.Field()
+    question = scrapy.Field()
+    answer = scrapy.Field()
+    qa_id = scrapy.Field()
+    url_mark = scrapy.Field()
+    r_type = scrapy.Field()
+    lang = scrapy.Field()
+    pass
