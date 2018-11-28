@@ -63,10 +63,10 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'MslSpider.pipelines.MslspiderPipeline': 300,
-    'scrapy_redis.pipelines.RedisPipeline': 200,
-}
+# ITEM_PIPELINES = {
+#     'MslSpider.pipelines.MslspiderPipeline': 300,
+#     'scrapy_redis.pipelines.RedisPipeline': 200,
+# }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -229,7 +229,11 @@ binbaz_settings = {
     'CONCURRENT_REQUESTS': 16,
     'DOWNLOAD_DELAY': 0.25,
     'DEPTH_LIMIT': 100,
-    'TABLE_NAME': 'religion8'
+    'TABLE_NAME': 'religion11',
+    'ITEM_PIPELINES': {
+        'MslSpider.pipelines.MslspiderBinbazPipeline': 300,
+        'scrapy_redis.pipelines.RedisPipeline': 200,
+    }
 }
 
 # islamqa Settings
@@ -241,6 +245,10 @@ islamqa_settings = {
     'DOWNLOADER_MIDDLEWARES': {
         # 'MslSpider.middlewares.SeleniumMiddleware': 543,
         'MslSpider.middlewares.SetUserAgentAndProxyMiddleware': 500,
+    },
+    'ITEM_PIPELINES': {
+        'MslSpider.pipelines.MslspiderPipeline': 300,
+        'scrapy_redis.pipelines.RedisPipeline': 200,
     }
 }
 
@@ -250,4 +258,8 @@ islamweb_settings = {
     'DOWNLOAD_DELAY': 0.25,
     'DEPTH_LIMIT': 100,
     'TABLE_NAME': 'religion10',
+    'ITEM_PIPELINES': {
+        'MslSpider.pipelines.MslspiderPipeline': 300,
+        'scrapy_redis.pipelines.RedisPipeline': 200,
+    }
 }
